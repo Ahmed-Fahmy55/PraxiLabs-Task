@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Praxi.Enemy
+namespace Praxi.WaveSystem
 {
     public class WaveManager : MonoBehaviour
     {
@@ -16,6 +16,9 @@ namespace Praxi.Enemy
         private int _currentWave = 1;
         private int _aliveEnemies = 0;
 
+        public bool IsActive { get; private set; } = true;
+
+
         private void Start()
         {
             StartCoroutine(StartWaveRoutine());
@@ -25,6 +28,12 @@ namespace Praxi.Enemy
         {
             while (true)
             {
+                if (!IsActive)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 int enemiesToSpawn = GetEnemyCountForWave(_currentWave);
                 Debug.Log($"Starting Wave {_currentWave}, Spawning: {enemiesToSpawn}");
 

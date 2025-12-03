@@ -122,6 +122,15 @@ namespace Praxi.Player.Input
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ToogleMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a258339-a8ba-4b5b-836c-473ee0561b6b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""d3a2c2e9-797f-4a13-9e13-6151329a1933"",
@@ -378,6 +387,17 @@ namespace Praxi.Player.Input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d7e409e-7b69-4fba-ac00-89bf37bc5fb5"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ToogleMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1023,6 +1043,7 @@ namespace Praxi.Player.Input
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+            m_Player_ToogleMouse = m_Player.FindAction("ToogleMouse", throwIfNotFound: true);
             m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
@@ -1122,6 +1143,7 @@ namespace Praxi.Player.Input
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Shoot;
+        private readonly InputAction m_Player_ToogleMouse;
         private readonly InputAction m_Player_Reload;
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Run;
@@ -1148,6 +1170,10 @@ namespace Praxi.Player.Input
             /// Provides access to the underlying input action "Player/Shoot".
             /// </summary>
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/ToogleMouse".
+            /// </summary>
+            public InputAction @ToogleMouse => m_Wrapper.m_Player_ToogleMouse;
             /// <summary>
             /// Provides access to the underlying input action "Player/Reload".
             /// </summary>
@@ -1195,6 +1221,9 @@ namespace Praxi.Player.Input
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @ToogleMouse.started += instance.OnToogleMouse;
+                @ToogleMouse.performed += instance.OnToogleMouse;
+                @ToogleMouse.canceled += instance.OnToogleMouse;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
@@ -1224,6 +1253,9 @@ namespace Praxi.Player.Input
                 @Shoot.started -= instance.OnShoot;
                 @Shoot.performed -= instance.OnShoot;
                 @Shoot.canceled -= instance.OnShoot;
+                @ToogleMouse.started -= instance.OnToogleMouse;
+                @ToogleMouse.performed -= instance.OnToogleMouse;
+                @ToogleMouse.canceled -= instance.OnToogleMouse;
                 @Reload.started -= instance.OnReload;
                 @Reload.performed -= instance.OnReload;
                 @Reload.canceled -= instance.OnReload;
@@ -1554,6 +1586,13 @@ namespace Praxi.Player.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnShoot(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ToogleMouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnToogleMouse(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

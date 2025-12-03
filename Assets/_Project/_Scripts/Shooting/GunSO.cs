@@ -1,3 +1,4 @@
+using Praxi.Combat;
 using UnityEngine;
 
 namespace Praxi.Shooting
@@ -6,7 +7,7 @@ namespace Praxi.Shooting
     [CreateAssetMenu(fileName = "GunSO", menuName = "Praxi/GunSO", order = 0)]
     public class GunSO : ScriptableObject
     {
-        public Bullet BulletPrefab;
+        public Projectile BulletPrefab;
         public ParticleSystem MuzzleEffect;
 
         public int Damage;

@@ -39,7 +39,6 @@ namespace Praxi.Player
         private bool _isGrounded = true;
         private float _fallSpeed = 2;
         private int _speedID;
-        private int _jumpID;
         private float _blendValue;
 
 
@@ -53,15 +52,7 @@ namespace Praxi.Player
 
         private void Start()
         {
-
-            SetupAnimationsIDs();
-        }
-
-
-        private void SetupAnimationsIDs()
-        {
             _speedID = Animator.StringToHash("Speed");
-            _jumpID = Animator.StringToHash("Jumb");
         }
 
         private void Update()
@@ -91,7 +82,6 @@ namespace Praxi.Player
                 if (_inputReader.Jumb)
                 {
                     _verticalVelocity = Mathf.Sqrt(_jumbHeight * -2f * _gravity);
-                    _anim.SetTrigger(_jumpID);
                     _inputReader.Jumb = false;
 
                 }

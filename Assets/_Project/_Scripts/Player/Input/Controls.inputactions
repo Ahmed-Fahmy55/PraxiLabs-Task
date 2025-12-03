@@ -34,6 +34,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToogleMouse",
+                    "type": "Button",
+                    "id": "8a258339-a8ba-4b5b-836c-473ee0561b6b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "d3a2c2e9-797f-4a13-9e13-6151329a1933",
@@ -290,6 +299,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d7e409e-7b69-4fba-ac00-89bf37bc5fb5",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ToogleMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

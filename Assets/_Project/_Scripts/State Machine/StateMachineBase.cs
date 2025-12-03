@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Praxi.StateMachine
 {
-    public abstract class StateMachine : MonoBehaviour
+    public abstract class StateMachineBase : MonoBehaviour
     {
         private StateBase _currentState;
 

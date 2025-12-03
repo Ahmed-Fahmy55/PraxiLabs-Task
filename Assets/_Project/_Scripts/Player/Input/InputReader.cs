@@ -15,6 +15,13 @@ namespace Praxi.Player.Input
         public bool Reload { get; set; }
 
         Controls _controls;
+        bool _isMouseLocked = true;
+
+        private void Start()
+        {
+            LockMouse(true);
+
+        }
 
         private void OnEnable()
         {
@@ -24,6 +31,7 @@ namespace Praxi.Player.Input
                 _controls.Player.SetCallbacks(this);
             }
             _controls.Player.Enable();
+
         }
 
         private void OnDisable()
@@ -59,6 +67,28 @@ namespace Praxi.Player.Input
         public void OnRun(InputAction.CallbackContext context)
         {
             Run = context.ReadValueAsButton();
+        }
+
+        public void OnToogleMouse(InputAction.CallbackContext context)
+        {
+            _isMouseLocked = !_isMouseLocked;
+
+            LockMouse(_isMouseLocked);
+
+        }
+
+        private static void LockMouse(bool hasToLock)
+        {
+            if (hasToLock)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }

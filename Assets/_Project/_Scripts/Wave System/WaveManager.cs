@@ -19,7 +19,7 @@ namespace Praxi.WaveSystem
         [SerializeField] private float _timeBetweenWaves = 5f;
         [SerializeField] private Transform[] _spawnPoints;
 
-        private readonly List<EnemyBase> _enemiesInWave = new();
+        private readonly List<EnemyStateMachine> _enemiesInWave = new();
         private int _waveToSpawnNumb = 1;
         private float _passedTime;
 
@@ -103,7 +103,7 @@ namespace Praxi.WaveSystem
 
         private void SpawnEnemy()
         {
-            EnemyBase enemy = _enemyFactory.Create();
+            EnemyStateMachine enemy = _enemyFactory.Create();
             enemy.transform.position = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Length)].position;
 
             _enemiesInWave.Add(enemy);

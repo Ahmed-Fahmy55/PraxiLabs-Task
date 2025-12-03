@@ -1,3 +1,4 @@
+using Praxi.Combat;
 using Praxi.Player.Input;
 using System;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Praxi.Shooting
         Camera _mainCam;
         Animator _animator;
         ParticleSystem _muzzleEffect;
-        IObjectPool<Bullet> _bulletPool;
+        IObjectPool<Projectile> _bulletPool;
         IObjectPool<ParticleSystem> _effectBool;
 
 
@@ -41,8 +42,8 @@ namespace Praxi.Shooting
 
             SetAnimationIDS();
 
-            _bulletPool = new ObjectPool<Bullet>(CreatBullet, OnGetBullet, OnReleaseBullet,
-                OnDestroyBullet, maxSize: _weapon.AmmoNumb);
+            _bulletPool = new ObjectPool<Projectile>(CreatBullet, OnGetBullet, OnReleaseBullet,
+                OnDestroyBullet, collectionCheck: true, maxSize: _weapon.AmmoNumb);
 
 
             if (_hitEffects != null && _hitEffects.Length > 0)
@@ -89,11 +90,12 @@ namespace Praxi.Shooting
             {
                 if (Time.time < _fireDelta) return;
 
-                Bullet bullet = _bulletPool.Get();
+                Projectile bullet = _bulletPool.Get();
                 bullet.Init(point, _weapon.Damage, _bulletPool, _effectBool);
 
 
                 if (_muzzleEffect != null) _muzzleEffect.Play();
+
                 _animator.SetTrigger(_shootID);
 
                 _currentMagNumb--;
@@ -113,6 +115,7 @@ namespace Praxi.Shooting
         private void Reload()
         {
             IsReloading = true;
+            _animator.ResetTrigger(_shootID);
             _animator.SetTrigger(_reLoadID);
             OnReload?.Invoke();
         }
@@ -142,25 +145,25 @@ namespace Praxi.Shooting
             _reLoadID = Animator.StringToHash("Reload");
         }
 
-        public Bullet CreatBullet()
+        public Projectile CreatBullet()
         {
-            Bullet bullet = Instantiate(_weapon.BulletPrefab, _firePoint.position, Quaternion.identity);
+            Projectile bullet = Instantiate(_weapon.BulletPrefab, _firePoint.position, Quaternion.identity);
             return bullet;
         }
 
-        private void OnGetBullet(Bullet bullet)
+        private void OnGetBullet(Projectile bullet)
         {
             bullet.transform.position = _firePoint.position;
             bullet.gameObject.SetActive(true);
         }
 
-        private void OnReleaseBullet(Bullet bullet)
+        private void OnReleaseBullet(Projectile bullet)
         {
             bullet.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
             bullet.gameObject.SetActive(false);
         }
 
-        private void OnDestroyBullet(Bullet bullet)
+        private void OnDestroyBullet(Projectile bullet)
         {
             Destroy(bullet.gameObject);
         }

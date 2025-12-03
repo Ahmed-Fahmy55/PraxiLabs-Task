@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e91f3e0cafa819448bb014de70a4704, type: 3}
   m_Name: Fighter
   m_EditorClassIdentifier: Assembly-CSharp::Praxi.Enemy.Data.FighterSO
-  Prefab: {fileID: 1087019203030507968, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
+  Prefab: {fileID: 738091555912501915, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
   MaxHealth: 100
   MoveSpeed: 3
   AttackRange: 2

@@ -16,6 +16,3 @@ MonoBehaviour:
   _maxPoolSize: 1000
   _enemiesData:
   - {fileID: 11400000, guid: 4b92b1aadad3d44499dcdce89bedf6e1, type: 2}
-  - {fileID: 11400000, guid: b6d7ab887f749264381c9f0ed454dc4a, type: 2}
-  - {fileID: 11400000, guid: 95f4aa2a9a4a03a41916276563120888, type: 2}
-  - {fileID: 11400000, guid: 3c369d84fadacd44890c2b6c03fd1f78, type: 2}

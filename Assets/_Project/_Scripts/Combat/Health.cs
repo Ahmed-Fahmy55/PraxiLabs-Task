@@ -1,34 +1,37 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+namespace Praxi.Combat
 {
-
-    public event Action OnTakeDamage;
-    public event Action OnDie;
-
-    [SerializeField] private int _maxHealth = 100;
-
-    public bool IsDead { get; private set; }
-
-    private int health;
-
-    private void Start()
+    public class Health : MonoBehaviour
     {
-        health = _maxHealth;
-    }
 
+        public event Action OnTakeDamage;
+        public event Action OnDie;
 
-    public void DealDamage(int damage)
-    {
-        if (IsDead) return;
+        [SerializeField] private int _maxHealth = 100;
 
-        health = Mathf.Max(health - damage, 0);
-        OnTakeDamage?.Invoke();
-        if (health == 0)
+        public bool IsDead { get; private set; }
+
+        private int health;
+
+        private void Start()
         {
-            OnDie?.Invoke();
-            IsDead = true;
+            health = _maxHealth;
+        }
+
+
+        public void DealDamage(int damage)
+        {
+            if (IsDead) return;
+
+            health = Mathf.Max(health - damage, 0);
+            OnTakeDamage?.Invoke();
+            if (health == 0)
+            {
+                OnDie?.Invoke();
+                IsDead = true;
+            }
         }
     }
 }

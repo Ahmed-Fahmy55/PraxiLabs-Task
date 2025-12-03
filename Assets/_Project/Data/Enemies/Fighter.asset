@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Fighter
   m_EditorClassIdentifier: Assembly-CSharp::Praxi.Enemy.Data.FighterSO
   Prefab: {fileID: 738091555912501915, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-  MaxHealth: 100
+  MaxHealth: 400
   MoveSpeed: 3
   AttackRange: 2
   AttackCooldown: 1.5
   DetectionRange: 5
   Damage: 10
-  Weapon: {fileID: 0}
+  IsMelee: 1
+  Projectile: {fileID: 0}

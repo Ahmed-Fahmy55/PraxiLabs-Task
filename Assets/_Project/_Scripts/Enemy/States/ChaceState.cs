@@ -38,7 +38,6 @@ namespace Praxi.Enemy.States
                 return;
             }
 
-            FaceDirection(_playerTransform.position);
             Move(_playerTransform.position);
         }
 

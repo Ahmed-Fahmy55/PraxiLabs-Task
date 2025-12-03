@@ -26,8 +26,6 @@ namespace Praxi.Enemy.States
         public override void Enter()
         {
             _agent.speed = _data.MoveSpeed;
-            _targetPoint = GetRandomPointInSquare();
-            Move(_targetPoint);
         }
 
         public override void Tick(float deltaTime)

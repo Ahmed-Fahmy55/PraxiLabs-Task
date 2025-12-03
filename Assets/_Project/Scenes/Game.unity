@@ -935,79 +935,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567253747}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &604656639
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4435356087621470252, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_SkinWidth
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435356087621470252, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_StepOffset
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435356087621470252, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_MinMoveDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.023357796
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9997272
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 182.677
-      objectReference: {fileID: 0}
-    - target: {fileID: 6905854446399486965, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883367941143525316, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_Name
-      value: Fighter
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883367941143525316, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 31bcaff754f068c438cf0e679e7ba9bf, type: 3}
 --- !u!1 &711526217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1253,7 @@ Transform:
   m_GameObject: {fileID: 857317520}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.21, y: 0.63, z: 0}
+  m_LocalPosition: {x: -1.21, y: 1.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1379,7 +1306,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &857317525
@@ -1421,7 +1348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5102b24ea79f31f4c946b5601a870af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Praxi.Combat.Health
-  _maxHealth: 100
+  _maxHealth: 1000
 --- !u!1 &905398715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,4 +3695,3 @@ SceneRoots:
   - {fileID: 2141416336}
   - {fileID: 404814940}
   - {fileID: 857317522}
-  - {fileID: 604656639}

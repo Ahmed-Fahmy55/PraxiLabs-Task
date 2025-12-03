@@ -15,4 +15,4 @@ MonoBehaviour:
   _initialPoolSize: 20
   _maxPoolSize: 1000
   _enemiesData:
-  - {fileID: 11400000, guid: 4b92b1aadad3d44499dcdce89bedf6e1, type: 2}
+  - {fileID: 11400000, guid: ff1217a82eed5a443905cc48e9ddf34f, type: 2}

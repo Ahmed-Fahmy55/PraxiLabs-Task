@@ -1,46 +1,71 @@
 ﻿using Praxi.Combat;
 using Praxi.Enemy.Base;
 using Praxi.Enemy.Data;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
+
 
 namespace Praxi.Enemy.States
 {
     public class AttackState : EnemyStateBase
     {
+        bool _isAttacking;
+        Transform _projectilePivot;
 
-        private float _passedTimeSinceLastAttack;
+        IObjectPool<Projectile> _projectilePool;
 
-        public AttackState(EnemyStateMachine stateMachine, NavMeshAgent agent,
+
+        public AttackState(Transform projectilePivot, EnemyStateMachine stateMachine, NavMeshAgent agent,
              Transform playerTransform, EnemyBaseSO data, Health playerHealth) :
             base(stateMachine, agent, playerTransform, data, playerHealth)
         {
-
+            _projectilePivot = projectilePivot;
         }
 
         public override void Enter()
         {
+            if (_projectilePool == null && !_data.IsMelee)
+            {
+                _projectilePool = new ObjectPool<Projectile>(CreateProjectile,
+                                                             OnGetProjectile,
+                                                             OnReleaseProjectile,
+                                                             OnDestroyProjectile,
+                                                             true,
+                                                             maxSize: 50);
+            }
+
             _agent.isStopped = true;
+            _agent.updateRotation = false;
+
         }
+
+
 
         public override void Tick(float deltaTime)
         {
-            if (!IsInAttackRange())
-            {
-                Debug.Log("patrol");
-                _stateMachine.SwitchState(_stateMachine.PatrolState);
-                return;
-            }
+            if (!_isAttacking) _stateMachine.StartCoroutine(AttackRoutine());
+        }
 
-            if (_passedTimeSinceLastAttack < _data.AttackCooldown)
-            {
-                _passedTimeSinceLastAttack += deltaTime;
-            }
-            else
-            {
-                _passedTimeSinceLastAttack = 0f;
-                Attack();
-            }
+        public override void Exit()
+        {
+            _agent.isStopped = false;
+            _isAttacking = false;
+            _agent.updateRotation = true;
+        }
+
+
+        private IEnumerator AttackRoutine()
+        {
+            _isAttacking = true;
+            FaceDirection(_playerTransform.position);
+            Attack();
+
+            yield return new WaitForSeconds(_data.AttackCooldown);
+
+            Debug.Log("Patrol");
+            _stateMachine.SwitchState(_stateMachine.PatrolState);
         }
 
         private void Attack()
@@ -53,14 +78,33 @@ namespace Praxi.Enemy.States
             else
             {
                 Debug.Log("Ranged Attack");
-                _playerHealth?.DealDamage(_data.Damage);
+                Projectile projectile = _projectilePool.Get();
+                var direction = (_playerTransform.position + Vector3.up * .5f) - _projectilePivot.position;
+                projectile.Init(direction.normalized, _data.Damage, _projectilePool, null);
             }
-            _stateMachine.SwitchState(_stateMachine.PatrolState);
         }
 
-        public override void Exit()
+
+        private void OnDestroyProjectile(Projectile projectile)
         {
-            _agent.isStopped = false;
+            GameObject.Destroy(projectile.gameObject);
+        }
+
+        private void OnReleaseProjectile(Projectile projectile)
+        {
+            projectile.gameObject.SetActive(false);
+            projectile.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        }
+
+        private void OnGetProjectile(Projectile projectile)
+        {
+            projectile.transform.position = _projectilePivot.position;
+            projectile.gameObject.SetActive(true);
+        }
+
+        private Projectile CreateProjectile()
+        {
+            return GameObject.Instantiate(_data.Projectile, _projectilePivot.position, Quaternion.identity);
         }
     }
 }

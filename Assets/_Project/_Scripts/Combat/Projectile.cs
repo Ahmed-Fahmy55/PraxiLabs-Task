@@ -30,7 +30,7 @@ namespace Praxi.Combat
         {
 
             _delta += Time.deltaTime;
-            if (_delta > K_DestroyTime && gameObject.activeSelf) ReleaseBullet();
+            if (_delta > K_DestroyTime && !_isReleased) ReleaseBullet();
 
         }
 

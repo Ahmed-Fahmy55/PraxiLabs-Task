@@ -13,6 +13,7 @@ namespace Praxi.Enemy.Base
     {
         [SerializeField] float _arenaSize = 9;
         [SerializeField] float _timeToSwitchPatrolPoint = 5f;
+        [SerializeField] Transform _shootPoint;
 
 
 
@@ -22,7 +23,10 @@ namespace Praxi.Enemy.Base
         protected Health _playerHealth;
         protected Transform _playerTransform;
         protected NavMeshAgent _agent;
+        IObjectPool<Projectile> _projectilePool;
+
         public IObjectPool<EnemyStateMachine> Pool { get; private set; }
+
 
         public PatrolState PatrolState { get; private set; }
         public ChaceState ChaceState { get; private set; }
@@ -64,6 +68,8 @@ namespace Praxi.Enemy.Base
             Pool = pool;
             SwitchState(PatrolState);
             SetupStates();
+
+
         }
 
         private void SetupStates()
@@ -71,7 +77,7 @@ namespace Praxi.Enemy.Base
             PatrolState = new PatrolState(_arenaSize, _timeToSwitchPatrolPoint, this, _agent, _playerTransform,
                 _data, _playerHealth);
             ChaceState = new ChaceState(this, _agent, _playerTransform, _data, _playerHealth);
-            AttackState = new AttackState(this, _agent, _playerTransform, _data, _playerHealth);
+            AttackState = new AttackState(_shootPoint, this, _agent, _playerTransform, _data, _playerHealth);
             DieState = new DieState(this, _agent, _playerTransform, _data, _playerHealth);
         }
 

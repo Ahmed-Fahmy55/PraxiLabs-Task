@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 838307730b3cb6246abb2e68dd3b25fb, type: 3}
-  m_Name: Normal Archer
+  m_Name: ArcherSO
   m_EditorClassIdentifier: Assembly-CSharp::Praxi.Enemy.Data.ArcherSO
-  Prefab: {fileID: 4237463448772056741, guid: 440a0b828822f9b4d8645e3f0a09c6c1, type: 3}
-  MaxHealth: 100
-  MoveSpeed: 3
-  AttackRange: 2
-  AttackCooldown: 1.5
-  DetectionRange: 5
-  Damage: 10
-  Weapon: {fileID: 0}
-  ProjectileSpeed: 15
-  IsTargetingMovingPlayer: 0
+  Prefab: {fileID: 4289075991092604568, guid: 440a0b828822f9b4d8645e3f0a09c6c1, type: 3}
+  MaxHealth: 150
+  MoveSpeed: 4
+  AttackRange: 10
+  AttackCooldown: 4
+  DetectionRange: 15
+  Damage: 15
+  IsMelee: 0
+  Projectile: {fileID: 1999724089728982738, guid: 3ef2dca193360674893a2905b6dd29cc, type: 3}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ce419e0e209224da201e98ba40b452, type: 3}
+  m_Name: GunSO
+  m_EditorClassIdentifier: Assembly-CSharp::Praxi.Shooting.GunSO
+  BulletPrefab: {fileID: 186226240675319899, guid: c48fa0621eb95074fa5cef8dcb982031, type: 3}
+  MuzzleEffect: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+  Damage: 20
+  AmmoNumb: 30
+  FireRate: 0.1
+  ReloadTime: 2
+  IsAutomatic: 1

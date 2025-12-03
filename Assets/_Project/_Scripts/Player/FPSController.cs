@@ -29,8 +29,6 @@ namespace Praxi.Player
 
 
 
-
-
         InputReader _inputReader;
         CharacterController _controller;
         Animator _anim;
@@ -38,17 +36,13 @@ namespace Praxi.Player
         private float _xRotaton;
         private float _yRotaton;
         private float _verticalVelocity;
-
-
         private bool _isGrounded = true;
         private float _fallSpeed = 2;
-
         private int _speedID;
         private int _jumpID;
-
-
-
         private float _blendValue;
+
+
 
         private void Awake()
         {
@@ -94,7 +88,6 @@ namespace Praxi.Player
                     _verticalVelocity = -2f;
                 }
 
-                // Jump
                 if (_inputReader.Jumb)
                 {
                     _verticalVelocity = Mathf.Sqrt(_jumbHeight * -2f * _gravity);
@@ -102,7 +95,6 @@ namespace Praxi.Player
                     _inputReader.Jumb = false;
 
                 }
-
             }
             else
             {

@@ -6,8 +6,6 @@ namespace Praxi.Enemy.Data
     public class MageSO : EnemyBaseSO
     {
         public GameObject ProjectilePrefab;
-        public float ProjectileSpeed = 10f;
-
         // Additional mage-specific stats can be added here
     }
 }

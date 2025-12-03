@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 namespace Praxi.Enemy.Base
 {
     [CreateAssetMenu(fileName = "EnemyFactory", menuName = "Praxi/Factory/Enemy Factory")]
-    public class EnemyFactory : ScriptableObject, IFactory<EnemyBase>
+    public class EnemyFactory : ScriptableObject, IFactory<EnemyStateMachine>
     {
         [Header("Pool Settings")]
         [SerializeField] private int _initialPoolSize = 20;
@@ -15,10 +15,10 @@ namespace Praxi.Enemy.Base
         [Header("Enemies Data")]
         [SerializeField] private EnemyBaseSO[] _enemiesData;
 
-        private IObjectPool<EnemyBase> _pool;
+        private IObjectPool<EnemyStateMachine> _pool;
 
 
-        public EnemyBase Create()
+        public EnemyStateMachine Create()
         {
             if (_pool == null)
                 IntializePool();
@@ -28,29 +28,29 @@ namespace Praxi.Enemy.Base
 
         private void IntializePool()
         {
-            _pool = new ObjectPool<EnemyBase>(
+            _pool = new ObjectPool<EnemyStateMachine>(
              CreateEnemyInstance, OnGet, OnRelease, OnInstanceDestroy, true, _initialPoolSize, _maxPoolSize);
         }
 
-        private void OnInstanceDestroy(EnemyBase enemy)
+        private void OnInstanceDestroy(EnemyStateMachine enemy)
         {
             Destroy(enemy.gameObject);
         }
 
-        private void OnRelease(EnemyBase enemy)
+        private void OnRelease(EnemyStateMachine enemy)
         {
             enemy.gameObject.SetActive(false);
         }
 
-        private void OnGet(EnemyBase enemy)
+        private void OnGet(EnemyStateMachine enemy)
         {
             enemy.gameObject.SetActive(true);
         }
 
-        private EnemyBase CreateEnemyInstance()
+        private EnemyStateMachine CreateEnemyInstance()
         {
             var data = _enemiesData[Random.Range(0, _enemiesData.Length)];
-            EnemyBase enemy = Instantiate(data.Prefab);
+            EnemyStateMachine enemy = Instantiate(data.Prefab);
             enemy.Setup(data, _pool);
 
             return enemy;

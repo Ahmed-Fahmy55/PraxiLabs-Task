@@ -18,7 +18,6 @@ namespace Praxi.WaveSystem.UI
         [SerializeField] private Button _destroyCurrentWaveButton;
 
         private WaveManager _waveManager;
-        private bool _activateNextWaveTimer = false;
         private StringBuilder _timeToNextWaveSb = new StringBuilder();
 
 
@@ -35,6 +34,7 @@ namespace Praxi.WaveSystem.UI
 
             _waveManager.WaveStarted += WaveManager_OnWaveStartd;
             _waveManager.WaveEnded += WaveManager_OnWaveEnded;
+            _waveManager.TimeToNextWaveUpdated += WaveManager_TimeToNextWaveUpdated;
 
         }
 
@@ -45,31 +45,30 @@ namespace Praxi.WaveSystem.UI
             _stopButton.onClick.RemoveListener(OnStopButtonClicked);
             _startNextWaveButton.onClick.RemoveListener(SpawnNextWave);
 
+
             _waveManager.WaveStarted -= WaveManager_OnWaveStartd;
             _waveManager.WaveEnded -= WaveManager_OnWaveEnded;
+            _waveManager.TimeToNextWaveUpdated -= WaveManager_TimeToNextWaveUpdated;
         }
 
-        private void Update()
+        private void WaveManager_TimeToNextWaveUpdated(float remainingTime)
         {
-            if (!_activateNextWaveTimer) return;
-
-            int time = Mathf.CeilToInt(_waveManager.TimeToNextWave);
             _timeToNextWaveSb.Clear();
             _timeToNextWaveSb.Append("Time to next wave: ");
-            _timeToNextWaveSb.Append(time);
+            _timeToNextWaveSb.Append(Mathf.CeilToInt(remainingTime));
             _timeToNextWaveText.text = _timeToNextWaveSb.ToString();
         }
 
         private void WaveManager_OnWaveEnded()
         {
-            _activateNextWaveTimer = _waveManager.DynamicSpawnActive;
+            _timeToNextWaveText.gameObject.SetActive(_waveManager.DynamicSpawnActive);
         }
 
         private void WaveManager_OnWaveStartd(int waveNumb, int enemiesCount)
         {
             _waveNumbText.text = $"Wave numbre: {waveNumb.ToString()}";
             _activeEnmiesText.text = $"Active enemies: {enemiesCount.ToString()}";
-            _activateNextWaveTimer = false;
+            _timeToNextWaveText.gameObject.SetActive(false);
         }
 
         private void OnDestroyCurrentWaveClicked()
@@ -81,7 +80,10 @@ namespace Praxi.WaveSystem.UI
         {
             _waveManager.ToggleSpawn();
             _spawnStatusText.text = _waveManager.DynamicSpawnActive ? "Stop" : "Resume";
-            _activateNextWaveTimer = _waveManager.DynamicSpawnActive;
+
+            if (_waveManager.CurrentState != WaveState.Delay) return;
+
+            _timeToNextWaveText.gameObject.SetActive(_waveManager.DynamicSpawnActive);
         }
 
         private void SpawnNextWave()

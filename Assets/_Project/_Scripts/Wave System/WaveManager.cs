@@ -7,10 +7,13 @@ using UnityEngine;
 
 namespace Praxi.WaveSystem
 {
+    public enum WaveState { Idle, Spawning, WaitingForClear, Delay }
+
     public class WaveManager : MonoBehaviour
     {
         public event Action<int, int> WaveStarted;
         public event Action WaveEnded;
+        public event Action<float> TimeToNextWaveUpdated;
 
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private float _timeBetweenWaves = 5f;
@@ -20,25 +23,21 @@ namespace Praxi.WaveSystem
         private int _waveToSpawnNumb = 1;
         private float _passedTime;
 
-        private enum WaveState { Idle, Spawning, WaitingForClear, Delay }
-        private WaveState _state = WaveState.Idle;
+        public WaveState CurrentState { get; private set; } = WaveState.Idle;
         private bool _isSpawning;
 
         public bool DynamicSpawnActive { get; private set; } = true;
-        public float TimeToNextWave =>
-            DynamicSpawnActive && _state == WaveState.Delay ?
-            Mathf.Max(0f, _timeBetweenWaves - _passedTime) : 0f;
 
 
 
         private void Start()
         {
-            _state = WaveState.Spawning;
+            CurrentState = WaveState.Spawning;
         }
 
         private void Update()
         {
-            switch (_state)
+            switch (CurrentState)
             {
                 case WaveState.Spawning:
                     HandleSpawning();
@@ -75,7 +74,7 @@ namespace Praxi.WaveSystem
             WaveStarted?.Invoke(_waveToSpawnNumb, spawnCount);
             _waveToSpawnNumb++;
 
-            _state = WaveState.WaitingForClear;
+            CurrentState = WaveState.WaitingForClear;
             _isSpawning = false;
         }
 
@@ -85,7 +84,7 @@ namespace Praxi.WaveSystem
             {
                 WaveEnded?.Invoke();
                 _passedTime = 0f;
-                _state = WaveState.Delay;
+                CurrentState = WaveState.Delay;
             }
         }
 
@@ -94,10 +93,11 @@ namespace Praxi.WaveSystem
             if (!DynamicSpawnActive) return;
 
             _passedTime += Time.deltaTime;
+            TimeToNextWaveUpdated?.Invoke(Mathf.Max(0f, _timeBetweenWaves - _passedTime));
 
             if (_passedTime >= _timeBetweenWaves)
             {
-                _state = WaveState.Spawning;
+                CurrentState = WaveState.Spawning;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Praxi.WaveSystem
         }
 
         [Button]
-        public void SpawnNextWave() => _state = WaveState.Spawning;
+        public void SpawnNextWave() => CurrentState = WaveState.Spawning;
 
 
         [Button]

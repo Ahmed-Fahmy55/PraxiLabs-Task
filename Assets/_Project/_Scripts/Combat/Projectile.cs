@@ -36,8 +36,6 @@ namespace Praxi.Combat
 
         private void OnCollisionEnter(Collision other)
         {
-            Debug.Log(transform.name + " collided with " + other.transform.name);
-
             if (!other.transform.TryGetComponent(out Health health))
             {
                 if (_effectPool == null)

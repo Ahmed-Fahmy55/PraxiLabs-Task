@@ -47,11 +47,6 @@ namespace Praxi.Enemy.States
 
         protected bool IsPlayerInChaceRange()
         {
-            if (_data == null)
-            {
-                Debug.LogError("null data");
-                return false;
-            }
             if (_playerHealth.IsDead) return false;
             float distanceToPlayer = (_stateMachine.transform.position - _playerTransform.position).sqrMagnitude;
             return distanceToPlayer <= _data.DetectionRange * _data.DetectionRange;

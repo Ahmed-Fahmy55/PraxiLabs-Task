@@ -20,7 +20,7 @@ namespace Praxi.WaveSystem
         [SerializeField] private float _timeBetweenWaves = 5f;
         [SerializeField] private Transform[] _spawnPoints;
 
-        private readonly List<EnemyStateMachine> _enemiesInWave = new();
+        private List<EnemyStateMachine> _enemiesInWave = new();
         private int _waveToSpawnNumb = 1;
         private float _passedTime;
         private EventBinding<EnemyDieEvent> _enemyKilledBinding;
@@ -142,10 +142,15 @@ namespace Praxi.WaveSystem
         [Button]
         public void ClearCurrentWave()
         {
+            // preventing collection modification while iterating
+            EventBus<EnemyDieEvent>.Deregister(_enemyKilledBinding);
+
             foreach (var enemy in _enemiesInWave)
                 if (enemy != null) enemy.Kill();
 
             _enemiesInWave.Clear();
+
+            EventBus<EnemyDieEvent>.Register(_enemyKilledBinding);
         }
 
         [Button]

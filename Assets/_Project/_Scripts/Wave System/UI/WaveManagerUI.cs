@@ -1,7 +1,8 @@
-using System.Text;
+using Praxi.Enemy.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zone8.Events;
 
 namespace Praxi.WaveSystem.UI
 {
@@ -18,8 +19,9 @@ namespace Praxi.WaveSystem.UI
         [SerializeField] private Button _destroyCurrentWaveButton;
 
         private WaveManager _waveManager;
-        private StringBuilder _timeToNextWaveSb = new StringBuilder();
+        EventBinding<EnemyDieEvent> _enemyDieBinding;
 
+        private int _enemiesCount;
 
         private void Awake()
         {
@@ -35,6 +37,8 @@ namespace Praxi.WaveSystem.UI
             _waveManager.WaveStarted += WaveManager_OnWaveStartd;
             _waveManager.WaveEnded += WaveManager_OnWaveEnded;
             _waveManager.TimeToNextWaveUpdated += WaveManager_TimeToNextWaveUpdated;
+            _enemyDieBinding = new EventBinding<EnemyDieEvent>(OnEnemyDied);
+            EventBus<EnemyDieEvent>.Register(_enemyDieBinding);
 
         }
 
@@ -49,14 +53,13 @@ namespace Praxi.WaveSystem.UI
             _waveManager.WaveStarted -= WaveManager_OnWaveStartd;
             _waveManager.WaveEnded -= WaveManager_OnWaveEnded;
             _waveManager.TimeToNextWaveUpdated -= WaveManager_TimeToNextWaveUpdated;
+
+            EventBus<EnemyDieEvent>.Deregister(_enemyDieBinding);
         }
 
         private void WaveManager_TimeToNextWaveUpdated(float remainingTime)
         {
-            _timeToNextWaveSb.Clear();
-            _timeToNextWaveSb.Append("Time to next wave: ");
-            _timeToNextWaveSb.Append(Mathf.CeilToInt(remainingTime));
-            _timeToNextWaveText.text = _timeToNextWaveSb.ToString();
+            _timeToNextWaveText.SetText("Time to next wave: {0}", Mathf.CeilToInt(remainingTime));
         }
 
         private void WaveManager_OnWaveEnded()
@@ -66,6 +69,7 @@ namespace Praxi.WaveSystem.UI
 
         private void WaveManager_OnWaveStartd(int waveNumb, int enemiesCount)
         {
+            _enemiesCount = enemiesCount;
             _waveNumbText.text = $"Wave numbre: {waveNumb.ToString()}";
             _activeEnmiesText.text = $"Active enemies: {enemiesCount.ToString()}";
             _timeToNextWaveText.gameObject.SetActive(false);
@@ -89,6 +93,12 @@ namespace Praxi.WaveSystem.UI
         private void SpawnNextWave()
         {
             _waveManager.SpawnNextWave();
+        }
+
+        private void OnEnemyDied(EnemyDieEvent @event)
+        {
+            _enemiesCount--;
+            _activeEnmiesText.text = $"Active enemies: {_enemiesCount.ToString()}";
         }
 
     }

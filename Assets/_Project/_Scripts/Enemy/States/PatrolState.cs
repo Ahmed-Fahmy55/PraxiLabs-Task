@@ -32,7 +32,6 @@ namespace Praxi.Enemy.States
         {
             if (IsPlayerInChaceRange())
             {
-                Debug.Log("Chase");
                 _stateMachine.SwitchState(_stateMachine.ChaceState);
                 return;
             }

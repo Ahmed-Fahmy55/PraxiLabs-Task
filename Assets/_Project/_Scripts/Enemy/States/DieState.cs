@@ -20,9 +20,8 @@ namespace Praxi.Enemy.States
         public override void Enter()
         {
             _agent.isStopped = true;
-
-            EventBus<EnemyDieEvent>.Raise(new EnemyDieEvent(_stateMachine));
             _stateMachine.Pool.Release(_stateMachine);
+            EventBus<EnemyDieEvent>.Raise(new EnemyDieEvent(_stateMachine));
         }
 
         public override void Tick(float deltaTime)

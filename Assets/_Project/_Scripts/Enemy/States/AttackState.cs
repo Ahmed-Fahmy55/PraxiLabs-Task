@@ -42,7 +42,6 @@ namespace Praxi.Enemy.States
         }
 
 
-
         public override void Tick(float deltaTime)
         {
             if (!_isAttacking) _stateMachine.StartCoroutine(AttackRoutine());
@@ -64,7 +63,6 @@ namespace Praxi.Enemy.States
 
             yield return new WaitForSeconds(_data.AttackCooldown);
 
-            Debug.Log("Patrol");
             _stateMachine.SwitchState(_stateMachine.PatrolState);
         }
 
@@ -72,12 +70,10 @@ namespace Praxi.Enemy.States
         {
             if (_data.IsMelee)
             {
-                Debug.Log("Melee Attack");
                 _playerHealth?.DealDamage(_data.Damage);
             }
             else
             {
-                Debug.Log("Ranged Attack");
                 Projectile projectile = _projectilePool.Get();
                 projectile.Init(_playerTransform.position + Vector3.up, _data.Damage, _projectilePool, null);
             }

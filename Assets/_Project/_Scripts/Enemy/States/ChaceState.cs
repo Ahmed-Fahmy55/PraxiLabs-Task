@@ -26,14 +26,12 @@ namespace Praxi.Enemy.States
         {
             if (!IsPlayerInChaceRange())
             {
-                Debug.Log("Patrol");
                 _stateMachine.SwitchState(_stateMachine.PatrolState);
                 return;
             }
 
             if (IsInAttackRange())
             {
-                Debug.Log("Attack");
                 _stateMachine.SwitchState(_stateMachine.AttackState);
                 return;
             }

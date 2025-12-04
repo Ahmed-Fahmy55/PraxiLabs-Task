@@ -16,7 +16,7 @@ MonoBehaviour:
   MaxHealth: 150
   MoveSpeed: 4
   AttackRange: 10
-  AttackCooldown: 4
+  AttackCooldown: 1000
   DetectionRange: 15
   Damage: 15
   IsMelee: 0

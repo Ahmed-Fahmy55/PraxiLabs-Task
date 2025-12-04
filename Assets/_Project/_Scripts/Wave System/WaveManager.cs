@@ -122,7 +122,7 @@ namespace Praxi.WaveSystem
 
         private int GetEnemyCountForWave(int wave)
         {
-            if (wave == 1) return 1;
+            if (wave == 1) return 30;
             if (wave == 2) return 50;
             if (wave == 3) return 70;
             return 70 + (wave - 3) * 10;

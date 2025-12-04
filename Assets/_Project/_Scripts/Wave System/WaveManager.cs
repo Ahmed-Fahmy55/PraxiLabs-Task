@@ -154,5 +154,16 @@ namespace Praxi.WaveSystem
             DynamicSpawnActive = !DynamicSpawnActive;
             _passedTime = 0f;
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            foreach (var spawnPoint in _spawnPoints)
+            {
+                Gizmos.DrawSphere(spawnPoint.position, 0.5f);
+            }
+        }
+#endif
     }
 }

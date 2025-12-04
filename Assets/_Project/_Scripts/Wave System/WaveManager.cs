@@ -82,7 +82,7 @@ namespace Praxi.WaveSystem
                 yield return null;
             }
 
-            WaveStarted?.Invoke(_waveToSpawnNumb, spawnCount);
+            WaveStarted?.Invoke(_waveToSpawnNumb, _enemiesInWave.Count);
             _waveToSpawnNumb++;
 
             CurrentState = WaveState.WaitingForClear;

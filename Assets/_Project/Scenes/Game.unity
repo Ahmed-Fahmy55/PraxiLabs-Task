@@ -1349,6 +1349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Praxi.Combat.Health
   _maxHealth: 1000
+  _isImuneToDamage: 1
 --- !u!1 &905398715
 GameObject:
   m_ObjectHideFlags: 0

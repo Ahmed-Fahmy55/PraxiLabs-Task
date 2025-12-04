@@ -10,7 +10,7 @@ namespace Praxi.Combat
         public event Action OnDie;
 
         [SerializeField] private int _maxHealth = 100;
-
+        [SerializeField] private bool _isImuneToDamage = false;
         public bool IsDead { get; private set; }
 
         private int health;
@@ -24,6 +24,7 @@ namespace Praxi.Combat
         public void DealDamage(int damage)
         {
             if (IsDead) return;
+            if (_isImuneToDamage) return;
 
             health = Mathf.Max(health - damage, 0);
             OnTakeDamage?.Invoke();

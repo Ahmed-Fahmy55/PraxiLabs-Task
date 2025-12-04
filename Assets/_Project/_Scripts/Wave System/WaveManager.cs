@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zone8.Events;
 
 namespace Praxi.WaveSystem
 {
@@ -22,6 +23,7 @@ namespace Praxi.WaveSystem
         private readonly List<EnemyStateMachine> _enemiesInWave = new();
         private int _waveToSpawnNumb = 1;
         private float _passedTime;
+        private EventBinding<EnemyDieEvent> _enemyKilledBinding;
 
         public WaveState CurrentState { get; private set; } = WaveState.Idle;
         private bool _isSpawning;
@@ -33,8 +35,17 @@ namespace Praxi.WaveSystem
         private void Start()
         {
             CurrentState = WaveState.Spawning;
+            _enemyKilledBinding = new EventBinding<EnemyDieEvent>(OnEnemyKilled);
+            EventBus<EnemyDieEvent>.Register(_enemyKilledBinding);
         }
 
+        private void OnDestroy()
+        {
+            EventBus<EnemyDieEvent>.Deregister(_enemyKilledBinding);
+        }
+
+
+        //Small state Machine No neede to implement a full one
         private void Update()
         {
             switch (CurrentState)
@@ -105,17 +116,24 @@ namespace Praxi.WaveSystem
         {
             EnemyStateMachine enemy = _enemyFactory.Create();
             enemy.transform.position = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Length)].position;
-
             _enemiesInWave.Add(enemy);
         }
 
+
         private int GetEnemyCountForWave(int wave)
         {
-            if (wave == 1) return 30;
+            if (wave == 1) return 1;
             if (wave == 2) return 50;
             if (wave == 3) return 70;
             return 70 + (wave - 3) * 10;
         }
+
+        private void OnEnemyKilled(EnemyDieEvent data)
+        {
+            if (_enemiesInWave.Contains(data.Enemy))
+                _enemiesInWave.Remove(data.Enemy);
+        }
+
 
         [Button]
         public void SpawnNextWave() => CurrentState = WaveState.Spawning;

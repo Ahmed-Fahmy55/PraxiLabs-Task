@@ -6,27 +6,33 @@ using Praxi.StateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+using Zone8.Events;
 
 namespace Praxi.Enemy.Base
 {
+    public struct EnemyDieEvent : IEvent
+    {
+        public EnemyStateMachine Enemy;
+        public EnemyDieEvent(EnemyStateMachine enemy)
+        {
+            Enemy = enemy;
+        }
+    }
+
     public class EnemyStateMachine : StateMachineBase
     {
         [SerializeField] float _arenaSize = 9;
         [SerializeField] float _timeToSwitchPatrolPoint = 5f;
         [SerializeField] Transform _shootPoint;
 
-
-
-
         protected EnemyBaseSO _data;
         protected Health _health;
         protected Health _playerHealth;
         protected Transform _playerTransform;
         protected NavMeshAgent _agent;
-        IObjectPool<Projectile> _projectilePool;
 
         public IObjectPool<EnemyStateMachine> Pool { get; private set; }
-
+        public Health Health => _health;
 
         public PatrolState PatrolState { get; private set; }
         public ChaceState ChaceState { get; private set; }

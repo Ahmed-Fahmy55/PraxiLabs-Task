@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 1150003670615548831}
   - component: {fileID: 6258017600338451291}
   - component: {fileID: 569195376172651792}
+  - component: {fileID: 1674765203665470436}
   m_Layer: 0
   m_Name: Enemy Base
   m_TagString: Untagged
@@ -91,10 +92,9 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.73893, y: 0, z: 0.20821}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.8, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8900203806581951857}
   - {fileID: 3722600996935698714}
   - {fileID: 5008666432583373411}
   m_Father: {fileID: 0}
@@ -149,69 +149,26 @@ MonoBehaviour:
   _arenaSize: 9
   _timeToSwitchPatrolPoint: 5
   _shootPoint: {fileID: 5008666432583373411}
---- !u!1001 &2910337744927174809
-PrefabInstance:
+--- !u!136 &1674765203665470436
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5912817801252365438}
-    m_Modifications:
-    - target: {fileID: 4101768930599791506, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_Name
-      value: Enemy Visuals
-      objectReference: {fileID: 0}
-    - target: {fileID: 5967552462914559595, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.036
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.103
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
---- !u!4 &8900203806581951857 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6043963700190002664, guid: f858199d64e3425448c89fa0dfc8136f, type: 3}
-  m_PrefabInstance: {fileID: 2910337744927174809}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543357502564231247}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}

@@ -79,8 +79,7 @@ namespace Praxi.Enemy.States
             {
                 Debug.Log("Ranged Attack");
                 Projectile projectile = _projectilePool.Get();
-                var direction = (_playerTransform.position + Vector3.up * .5f) - _projectilePivot.position;
-                projectile.Init(direction.normalized, _data.Damage, _projectilePool, null);
+                projectile.Init(_playerTransform.position + Vector3.up, _data.Damage, _projectilePool, null);
             }
         }
 

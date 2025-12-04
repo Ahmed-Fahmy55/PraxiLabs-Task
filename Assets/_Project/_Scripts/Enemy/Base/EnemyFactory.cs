@@ -1,10 +1,12 @@
 using Praxi.Enemy.Data;
 using Praxi.Factory;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace Praxi.Enemy.Base
 {
+    [InlineEditor]
     [CreateAssetMenu(fileName = "EnemyFactory", menuName = "Praxi/Factory/Enemy Factory")]
     public class EnemyFactory : ScriptableObject, IFactory<EnemyStateMachine>
     {
